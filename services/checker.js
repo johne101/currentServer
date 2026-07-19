@@ -9,7 +9,7 @@ export const checkTrainAvailability = async (monitor) => {
       monitor.to,
       monitor.date,
       monitor.coachClass,
-      monitor.quota
+      monitor.quota,
     );
 
     const first = result.availability?.[0];
@@ -20,16 +20,15 @@ export const checkTrainAvailability = async (monitor) => {
       await sendNotification(
         monitor.expoPushToken,
         monitor.train,
-        first.availabilityText
+        first.availabilityText,
       );
 
       monitor.notified = true;
+      monitor.active = false; // Stop monitoring
+
       await monitor.save();
     }
   } catch (err) {
-    console.error(
-      `Error checking train ${monitor.train}:`,
-      err.message
-    );
+    console.error(`Error checking train ${monitor.train}:`, err.message);
   }
 };
