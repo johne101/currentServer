@@ -1,72 +1,28 @@
 import express from "express";
-import mongoose from "mongoose";
 import dotenv from "dotenv";
+import mongoose from "mongoose";
 
-import {
-  configure,
-  getAvailability,
-} from "railkit";
-
-import Monitor from "./model/Monitor.js";
-
-import "./cron.js";
+import monitorRoutes from "./routes/monitor.routes.js";
+import { startCronJob } from "./services/cron.service.js";
 
 dotenv.config();
-
-configure(process.env.RAILKIT_API_KEY);
 
 const app = express();
 
 app.use(express.json());
 
+// MongoDB
 mongoose
   .connect(process.env.MONGO_URI)
-  .then(() => console.log("Mongo Connected"))
+  .then(() => {
+    console.log("MongoDB Connected")
+        startCronJob();
+
+  })
   .catch(console.error);
 
-app.post("/monitor", async (req, res) => {
-  try {
-    const monitor = await Monitor.create(req.body);
-
-    res.json({
-      success: true,
-      monitor,
-    });
-  } catch (err) {
-    res.status(500).json({
-      success: false,
-      message: err.message,
-    });
-  }
-});
-
-app.get("/availability", async (req, res) => {
-  try {
-    const {
-      train,
-      from,
-      to,
-      date,
-      coachClass,
-      quota,
-    } = req.query;
-
-    const data = await getAvailability(
-      train,
-      from,
-      to,
-      date,
-      coachClass,
-      quota
-    );
-
-    res.json(data);
-  } catch (err) {
-    res.status(500).json({
-      message: err.message,
-    });
-  }
-});
+// Routes
+app.use("/monitor", monitorRoutes);
 
 const PORT = process.env.PORT || 8080;
 

@@ -1,24 +1,62 @@
 import mongoose from "mongoose";
 
-const MonitorSchema = new mongoose.Schema({
-  train: String,
-  from: String,
-  to: String,
-  date: String,
-  coachClass: String,
-  quota: String,
+const monitorSchema = new mongoose.Schema(
+  {
+    expoPushToken: {
+      type: String,
+      required: true,
+    },
 
-  expoPushToken: String,
+    train: {
+      type: String,
+      required: true,
+    },
 
-  active: {
-    type: Boolean,
-    default: true,
+    from: {
+      type: String,
+      required: true,
+      uppercase: true,
+    },
+
+    to: {
+      type: String,
+      required: true,
+      uppercase: true,
+    },
+
+    date: {
+      type: String,
+      required: true,
+    },
+
+    coachClass: {
+      type: String,
+      required: true,
+    },
+
+    quota: {
+      type: String,
+      default: "GN",
+    },
+
+    active: {
+      type: Boolean,
+      default: true,
+    },
+
+    notified: {
+      type: Boolean,
+      default: false,
+    },
+
+    lastCheckedAt: {
+      type: Date,
+      default: null,
+    },
   },
+  {
+    timestamps: true,
+  }
+);
 
-  notified: {
-    type: Boolean,
-    default: false,
-  },
-});
-
-export default mongoose.model("Monitor", MonitorSchema);
+export default mongoose.model("Monitor", monitorSchema);
