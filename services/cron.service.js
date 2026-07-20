@@ -1,6 +1,6 @@
 import cron from "node-cron";
 
-import Monitor from "../models/Monitor.js";
+import Monitor from "../model/Monitor.js";
 import { checkAvailability } from "./railkit.service.js";
 import { sendPushNotification } from "./notification.service.js";
 

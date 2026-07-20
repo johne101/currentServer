@@ -1,4 +1,4 @@
-import Monitor from "../models/Monitor.js";
+import Monitor from "../model/Monitor.js";
 
 export const startMonitoring = async (req, res) => {
   try {
