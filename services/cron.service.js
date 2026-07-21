@@ -71,7 +71,7 @@ export const startCronJob = () => {
           console.log("Searching for CURR-AVL...");
 
           const availableSeat = data.availability.find((item) =>
-            item.availabilityText.startsWith("CURR-AVL")
+            item.availabilityText.startsWith("CURR_AVL")
           );
 
           if (!availableSeat) {
