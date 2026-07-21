@@ -4,8 +4,12 @@ import mongoose from "mongoose";
 
 import monitorRoutes from "./routes/monitor.routes.js";
 import { startCronJob } from "./services/cron.service.js";
+import { configure } from "railkit";
 
 dotenv.config();
+configure(process.env.RAILKIT_API_KEY);
+
+console.log("RailKit configured");
 
 const app = express();
 
