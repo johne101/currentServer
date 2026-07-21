@@ -23,7 +23,12 @@ mongoose
 
 // Routes
 app.use("/monitor", monitorRoutes);
-
+app.get("/", (req, res) => {
+  res.json({
+    success: true,
+    message: "Server running"
+  });
+});
 const PORT = process.env.PORT || 8080;
 
 app.listen(PORT, () => {

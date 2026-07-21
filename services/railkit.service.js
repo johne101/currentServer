@@ -21,6 +21,8 @@ export const checkAvailability = async ({
     if (!response.success) {
       throw new Error("RailKit request failed");
     }
+console.log("response");
+console.log(response);
 
     return response.data;
   } catch (error) {
