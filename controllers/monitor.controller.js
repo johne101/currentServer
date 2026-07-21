@@ -29,15 +29,16 @@ export const startMonitoring = async (req, res) => {
     }
 
     // Prevent duplicate active monitor
-    const existing = await Monitor.findOne({
-      train,
-      from,
-      to,
-      date,
-      coachClass,
-      quota,
-      active: true,
-    });
+ const existing = await Monitor.findOne({
+  expoPushToken,
+  train,
+  from,
+  to,
+  date,
+  coachClass,
+  quota,
+  active: true,
+});
 
     if (existing) {
       return res.status(200).json({

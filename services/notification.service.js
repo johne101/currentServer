@@ -1,4 +1,4 @@
-import expo from "../config/expo.js";
+import expo, { Expo } from "../config/expo.js";
 
 export const sendPushNotification = async (
   expoPushToken,
